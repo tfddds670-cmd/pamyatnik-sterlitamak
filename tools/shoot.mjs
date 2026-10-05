@@ -117,7 +117,8 @@ try {
   }, sessionId);
 
   const loaded = cdp.once('Page.loadEventFired');
-  await cdp.send('Page.navigate', { url: 'file://' + path.join(ROOT, page) }, sessionId);
+  const pageUrl = /^https?:\/\//.test(page) ? page : 'file://' + path.join(ROOT, page);
+  await cdp.send('Page.navigate', { url: pageUrl }, sessionId);
   await loaded;
   await new Promise((r) => setTimeout(r, wait));
 
