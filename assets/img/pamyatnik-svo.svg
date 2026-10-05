@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 675" width="900" height="675" role="img">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef1f5"/>
+      <stop offset="0.55" stop-color="#e2e6ea"/>
+      <stop offset="1" stop-color="#d5dade"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9aa694"/>
+      <stop offset="1" stop-color="#77836f"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.78">
+      <stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.16"/>
+    </radialGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.26"/>
+      <stop offset="0.42" stop-color="#fff" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="speckle" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+      <feComponentTransfer in="g" result="g2">
+        <feFuncA type="linear" slope="0.5" intercept="0"/>
+      </feComponentTransfer>
+      <feComposite in="g2" in2="SourceGraphic" operator="in"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <filter id="soft8" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+<rect width="900" height="675" fill="url(#sky)"/><ellipse cx="90" cy="500" rx="200" ry="120" fill="#5d6d57" opacity="0.55" filter="url(#soft8)"/><ellipse cx="820" cy="496" rx="220" ry="130" fill="#54644f" opacity="0.5" filter="url(#soft8)"/><ellipse cx="450" cy="470" rx="300" ry="90" fill="#8fa08a" opacity="0.45" filter="url(#soft)"/><rect y="520" width="900" height="155" fill="url(#ground)"/><path d="M0 520 Q225 502 450 519 T900 514 L900 545 L0 545 Z" fill="#8d9a83" opacity="0.6"/>
+
+    <linearGradient id="granite" x1="0.05" y1="0" x2="0.95" y2="1">
+      <stop offset="0" stop-color="#4d545c"/>
+      <stop offset="0.45" stop-color="#2a3037"/>
+      <stop offset="1" stop-color="#14171b"/>
+    </linearGradient>
+    <linearGradient id="graniteDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a3037"/>
+      <stop offset="1" stop-color="#14171b"/>
+    </linearGradient>
+    
+<ellipse cx="450.0" cy="609" rx="234.0" ry="26" fill="#1b2118" opacity="0.30" filter="url(#soft8)"/>
+<path d="M317.5 545 L317.5 192.4 Q317.5 150 359.9 150 L540.1 150 Q582.5 150 582.5 192.4 L582.5 545 Z" fill="url(#granite)"/><path d="M317.5 545 L317.5 192.4 Q317.5 150 359.9 150 L540.1 150 Q582.5 150 582.5 192.4 L582.5 545 Z" fill="none" stroke="#000" stroke-opacity="0.28" stroke-width="2"/><clipPath id="clipStele"><path d="M317.5 545 L317.5 192.4 Q317.5 150 359.9 150 L540.1 150 Q582.5 150 582.5 192.4 L582.5 545 Z"/></clipPath><g clip-path="url(#clipStele)"><rect x="317.5" y="150" width="265" height="395" fill="#000" opacity="0.20" filter="url(#speckle)"/><rect x="317.5" y="150" width="265" height="395" fill="url(#sheen)"/></g>
+<rect x="300.0" y="551" width="300" height="58" rx="4" fill="url(#graniteDark)"/><rect x="300.0" y="551" width="300" height="58" rx="4" fill="#000" opacity="0.20" filter="url(#speckle)"/><rect x="300.0" y="551" width="300" height="6" fill="#fff" opacity="0.10"/>
+<g opacity="0.55" fill="none" stroke="#e9e4d8" stroke-width="2.4"><ellipse cx="450.0" cy="256.65" rx="47.23625" ry="55.45125000000001"/><circle cx="450.0" cy="245.14899999999997" r="17.2515"/><path d="M424.5335 295.67125 Q 450.0 273.9015 475.4665 295.67125"/></g>
+<g opacity="0.9" fill="#e9e4d8"><rect x="446.0" y="238.5" width="8.07" height="172.8" rx="4.0"/><rect x="430.4" y="266.2" width="39.2" height="8.07" rx="4.0"/><rect x="397.0" y="310.0" width="106.0" height="8.07" rx="4.0"/><rect x="416.6" y="374.5" width="66.8" height="8.07" rx="4.0" transform="rotate(-16 450.0 378.5)"/></g>
+<g opacity="0.5" fill="#e9e4d8"><rect x="370.5" y="434.4" width="159.0" height="5" rx="2.5"/><rect x="370.5" y="454.4" width="159.0" height="5" rx="2.5"/><rect x="400.71" y="474.4" width="98.58" height="5" rx="2.5"/></g>
+<rect width="900" height="675" fill="url(#vignette)"/></svg>
