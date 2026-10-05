@@ -36,6 +36,13 @@ SITE = {
     "inn": "ИНН 000000000000 · ОГРНИП 000000000000000",
 }
 
+# Адрес, по которому будет опубликован сайт (без слэша в конце).
+SITE_URL = "https://tfddds670-cmd.github.io/pamyatnik-sterlitamak"
+
+# Пока на сайте демонстрационные контакты и цены — закрываем его от поисковиков.
+# Перед «боевой» публикацией поставьте False и пересоберите страницы.
+NOINDEX = True
+
 NAV = [
     ("index.html", "Главная"),
     ("catalog.html", "Каталог"),
@@ -497,6 +504,7 @@ SHELL = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{TITLE}}</title>
 <meta name="description" content="{{DESC}}">
+{{ROBOTS}}
 <meta name="theme-color" content="#12161b">
 <meta property="og:title" content="{{TITLE}}">
 <meta property="og:description" content="{{DESC}}">
@@ -526,10 +534,19 @@ SHELL = """<!DOCTYPE html>
 """
 
 
+ROBOTS_META = ('<meta name="robots" content="noindex, nofollow">'
+               if NOINDEX else
+               '<meta name="robots" content="index, follow">')
+
+RENDERED = []
+
+
 def render(filename, title, desc, active, body, jsonld=""):
+    RENDERED.append(filename)
     html = (SHELL
             .replace("{{TITLE}}", title)
             .replace("{{DESC}}", desc)
+            .replace("{{ROBOTS}}", ROBOTS_META)
             .replace("{{FAVICON}}", FAVICON)
             .replace("{{JSONLD}}", jsonld)
             .replace("{{HEADER}}", header_html(active))
@@ -1423,5 +1440,28 @@ render("oferta.html",
        "Публичная оферта — %s" % SITE["name"],
        "Условия оказания услуг ритуальной мастерской «Вечная память» в Стерлитамаке: заказ, оплата, сроки, гарантия.",
        "oferta.html", oferta_body)
+
+# --------------------------------------------------------------------------
+# sitemap.xml
+# --------------------------------------------------------------------------
+import datetime
+
+PRIORITY = {"index.html": "1.0", "catalog.html": "0.9", "ceny.html": "0.8",
+            "uslugi.html": "0.8", "tovary.html": "0.8", "raboty.html": "0.7",
+            "kontakty.html": "0.7", "politika.html": "0.2", "oferta.html": "0.2"}
+
+base = SITE_URL.rstrip("/")
+today = datetime.date.today().isoformat()
+urls = "\n".join(
+    "  <url>\n    <loc>%s/%s</loc>\n    <lastmod>%s</lastmod>\n"
+    "    <priority>%s</priority>\n  </url>" % (base, f, today, PRIORITY.get(f, "0.5"))
+    for f in RENDERED)
+sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           + urls + "\n</urlset>\n")
+with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
+    f.write(sitemap)
+print("ok sitemap.xml (%d адресов)%s" % (len(RENDERED),
+      " — индексация закрыта (NOINDEX = True)" if NOINDEX else ""))
 
 print("Сборка страниц завершена.")
